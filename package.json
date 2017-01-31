@@ -1,0 +1,49 @@
+{
+  "name": "myApp",
+  "version": "1.0.0",
+  "description": "A minimal Electron application",
+  "main": "./source/main.js",
+  "build": {
+    "appId": "myApp.id",
+    "mac": {
+      "category": "your.app.category.type"
+    },
+    "win": {
+    }
+  },
+  "scripts": {
+    "start": "electron ./source/main.js",
+    "clean": "del .\\dist",
+    "clean:osx": "del .\\dist\\osx",
+    "clean:win32": "del .\\dist\\win32",
+    "build": "npm run clean && npm run build:osx && npm run build:win32",
+    "build:osx": "npm run clean:osx && electron-packager ./ \"myApp\" --platform=darwin --arch=x64 --out=dist/osx --prune --overwrite",
+    "build:win32": "npm run clean:win32 && electron-packager ./ \"myApp\" --platform=win32 --arch=ia32 --out=dist/win32 --prune --overwrite",
+    "pack": "npm run pack:osx && npm run pack:win",
+    "pack:osx": "npm run build:osx && build --mac --x64 --prepackaged=\"dist/win32/myApp-win32-ia32\"",
+    "pack:win32": "npm run build:win32 && build --win --ia32 --prepackaged=\"dist/win32/myApp-win32-ia32\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/electron/electron-quick-start.git"
+  },
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial"
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/electron/electron-quick-start/issues"
+  },
+  "homepage": "https://github.com/electron/electron-quick-start#readme",
+  "devDependencies": {
+    "asar": "^0.13.0",
+    "electron-builder": "^11.5.1",
+    "electron-packager": "^8.5.1",
+    "electron-prebuilt": "^1.2.0",
+    "electron-winstaller": "^2.5.1"
+  }
+}
